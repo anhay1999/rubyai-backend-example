@@ -1,4 +1,7 @@
-@import 'variable';
+@import "variable";
 h1 {
   color: $red;
+}
+.card-post-item {
+  margin-top: 16px;
 }

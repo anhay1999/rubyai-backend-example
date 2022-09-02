@@ -1,17 +1,17 @@
 const Post = require("../models/Post");
+const { multipleMongooseToObject } = require("../../util/mongoose");
 console.log("Post: ", Post);
 class SiteController {
   // [GET] /
-  index(req, res) {
-    // res.render('home');
-    Post.find({}, function (err, posts) {
-      if (!err) {
-        res.json(posts);
-      } else {
-        console.log("error");
-        res.status(400).json({ error: "error!!!" });
-      }
-    });
+  index(req, res, next) {
+    Post.find({})
+      .then((posts) => {
+        res.render("home", {
+          posts: multipleMongooseToObject(posts),
+        });
+      })
+      .catch(next);
+    // .catch((error) => next(error));
   }
   // [GET] /search
   search(req, res) {

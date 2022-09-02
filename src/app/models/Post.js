@@ -9,8 +9,4 @@ const Post = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const MyModel = mongoose.model("Post", Post);
-MyModel.find({}, function (err, docs) {
-  console.log("docs: ", docs);
-});
 module.exports = mongoose.model("Post", Post);
