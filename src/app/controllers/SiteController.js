@@ -1,6 +1,5 @@
 const Post = require("../models/Post");
 const { multipleMongooseToObject } = require("../../util/mongoose");
-console.log("Post: ", Post);
 class SiteController {
   // [GET] /
   index(req, res, next) {

@@ -26,6 +26,20 @@ class PostController {
       })
       .catch(next);
   }
+  // [GET] /posts/:id/edit
+  edit(req, res, next) {
+    Post.findById(req.params.id)
+      .then((post) => {
+        res.render("posts/edit", { post: mongooseToObject(post) });
+      })
+      .catch(next);
+  }
+  //[PUT] /posts/:id/_method=PUT
+  update(req, res, next) {
+    Post.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect("/me/stored/posts"))
+      .catch(next);
+  }
 }
 
 module.exports = new PostController();

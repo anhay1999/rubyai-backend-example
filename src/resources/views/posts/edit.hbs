@@ -1,0 +1,22 @@
+<div class="mt-4">
+    <h3>Update Post</h3>
+    <form method="POST" action="/posts/{{post._id}}/?_method=PUT">
+        <div class="form-group">
+            <label for="name">name</label>
+            <input type="text" class="form-control" value = {{post.name}} id="name" name="name" >
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" >{{post.description}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="videoUrl">videoUrl</label>
+            <input type="text" class="form-control" value = {{post.videoUrl}} id="videoUrl" name="videoUrl" >
+        </div>
+        <div class="form-group">
+            <label for="level">level</label>
+            <input type="text" class="form-control" value = {{post.level}} id="level" name="level" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

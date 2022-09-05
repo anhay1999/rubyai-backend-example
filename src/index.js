@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const engine = require("express-handlebars");
+const methodOverride = require("method-override");
 const app = express();
 const port = 5000;
 
@@ -13,7 +14,8 @@ app.use(
     extended: true,
   })
 );
-
+app.use(methodOverride("_method"));
+app.use(express.json());
 //HTTP logger
 //app.use(morgan("combined"));
 //template engine
@@ -22,6 +24,11 @@ app.engine(
   engine.engine({
     extname: ".hbs",
     // defaultLayout: "main"
+    helpers: {
+      sum: (a, b) => {
+        return a + b;
+      },
+    },
   })
 );
 app.set("view engine", ".hbs");
