@@ -40,6 +40,12 @@ class PostController {
       .then(() => res.redirect("/me/stored/posts"))
       .catch(next);
   }
+  //[DELETE] /posts/:id/_method=DELETE
+  delete(req, res, next) {
+    Post.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
 }
 
 module.exports = new PostController();
