@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div class= "post-title">
-      <h3>Các bài viết của tôi</h3>
-      <a href="/me/trash/posts">Deleted Posts</a>
+      <h3>Các bài viết đã xóa</h3>
+      <a href="/me/stored/posts">Current Posts</a>
     </div>
 
     <table class="table mt-4">
@@ -21,15 +21,14 @@
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
                 <td>
-                    <a href="/posts/{{this._id}}/edit" class="btn btn-link">Change</a>
-                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-posts-model">Delete</a>
+                    <a href="" class="btn btn-link btn-restore" data-id={{this._id}}>Restore</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-posts-model">Permanently Delete</a>
                 </td>
             </tr>
             {{else}}
             <tr>
               <td colspan="5" class="text-center">
-                  Bạn chưa đăng bài viết nào.
-                  <a href="/posts/create">Đăng bài viết</a>
+                  Bạn không có bài viết nào đã xóa.
               </td>
             </tr>
             {{/each}}
@@ -59,11 +58,15 @@
 {{!--Delete hidden form--}}
 <form method="POST" name="delete-form">
 </form>
+<form method="POST" name="restore-form">
+</form>
 <script>
 
     document.addEventListener('DOMContentLoaded', function(){    
         var postId;
         var deleteForm = document.forms['delete-form']
+        var restoreForm = document.forms['restore-form']
+        var restoreBtn = $('.btn-restore')
         $('#delete-posts-model').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             postId = button.data('id') 
@@ -71,9 +74,17 @@
 
         var btnDeletePost = document.getElementById('btn-delete-post')
         btnDeletePost.onclick = function(){
-            deleteForm.action=`/posts/${postId}?_method=DELETE`
+            deleteForm.action=`/posts/${postId}/force?_method=DELETE`
             deleteForm.submit()
         }
+
+        restoreBtn.click(function (e){
+          e.preventDefault()
+          var postId = $(this).data('id')
+          restoreForm.action=`/posts/${postId}/restore?_method=PATCH`
+          restoreForm.submit()
+
+        })
     })
     
 </script>

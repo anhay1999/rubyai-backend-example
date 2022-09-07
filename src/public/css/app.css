@@ -7,4 +7,12 @@ h1 {
 .user-avatar {
   width: 28px;
   height: 28px;
-  border-radius: 50%; }
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 4px; }
+
+.post-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between; }

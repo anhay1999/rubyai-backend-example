@@ -22,7 +22,7 @@ class PostController {
     post
       .save()
       .then(() => {
-        res.redirect("/");
+        res.redirect("/me/stored/posts");
       })
       .catch(next);
   }
@@ -40,9 +40,21 @@ class PostController {
       .then(() => res.redirect("/me/stored/posts"))
       .catch(next);
   }
-  //[DELETE] /posts/:id/_method=DELETE
+  //*soft-delete [DELETE] /posts/:id/_method=DELETE
   delete(req, res, next) {
+    Post.delete({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+  //[DELETE] /posts/:id/force_method=DELETE
+  forceDelete(req, res, next) {
     Post.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+  //[PATCH] /posts/:id/restore
+  restore(req, res, next) {
+    Post.restore({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
