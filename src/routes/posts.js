@@ -4,6 +4,7 @@ const postController = require("../app/controllers/PostController");
 
 router.get("/create", postController.create);
 router.post("/store", postController.store);
+router.post("/handle-form-actions", postController.handleFormAction);
 router.put("/:id", postController.update);
 router.patch("/:id/restore", postController.restore);
 router.delete("/:id", postController.delete);

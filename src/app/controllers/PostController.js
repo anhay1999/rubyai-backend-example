@@ -58,6 +58,19 @@ class PostController {
       .then(() => res.redirect("back"))
       .catch(next);
   }
+  //[POST] /posts/handle-form-actions
+  handleFormAction(req, res, next) {
+    switch (req.body.action) {
+      case "delete": {
+        Post.delete({ _id: req.body.postIds })
+          .then(() => res.redirect("back"))
+          .catch(next);
+        break;
+      }
+      default:
+        res.send("Action is invalid");
+    }
+  }
 }
 
 module.exports = new PostController();
