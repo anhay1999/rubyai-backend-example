@@ -3,7 +3,13 @@ const { multipleMongooseToObject } = require("../../util/mongoose");
 class MeController {
   // [GET] /me/stored/posts
   storedPosts(req, res, next) {
-    Post.find({})
+    let postQuery = Post.find({});
+    if (req.query.hasOwnProperty("_sort")) {
+      postQuery = postQuery.sort({
+        [req.query.column]: req.query.type,
+      });
+    }
+    postQuery
       .then((posts) =>
         res.render("me/stored-posts", {
           posts: multipleMongooseToObject(posts),

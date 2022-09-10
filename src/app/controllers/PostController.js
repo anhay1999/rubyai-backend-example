@@ -62,7 +62,7 @@ class PostController {
   handleFormAction(req, res, next) {
     switch (req.body.action) {
       case "delete": {
-        Post.delete({ _id: req.body.postIds })
+        Post.delete({ _id: { $in: req.body.postIds } })
           .then(() => res.redirect("back"))
           .catch(next);
         break;
