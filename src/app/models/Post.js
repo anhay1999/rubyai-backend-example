@@ -15,5 +15,15 @@ const Post = new Schema(
   },
   { timestamps: true }
 );
+//
+Post.query.sortable = function (req) {
+  if (req.query.hasOwnProperty("_sort")) {
+    const isValidType = ["asc", "desc"].includes(req.query.type);
+    return this.sort({
+      [req.query.column]: isValidType ? req.query.type : "desc",
+    });
+  }
+  return this;
+};
 Post.plugin(mongooseDelete, { overrideMethods: "all" });
 module.exports = mongoose.model("Post", Post);
